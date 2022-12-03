@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Form from "./components/Form";
+import Loading from "./components/Loading";
+import useFetchUserData from "./hooks/useFetchUserData";
 
-function App() {
+export default function App() {
+  const { data, error, loading } = useFetchUserData(
+    "https://sanyamresponsestatusapi.sanyam04.repl.co/data"
+  );
+
+  const localData = JSON.parse(localStorage.getItem("userData"));
+  const userData = localData !== null ? localData : data;
+  if (error) throw new Error(error);
+  if (loading) return <Loading />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="w-screen h-screen">
+      <Form userData={userData} />
+    </main>
   );
 }
-
-export default App;
