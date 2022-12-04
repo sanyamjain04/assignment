@@ -2,7 +2,7 @@ import Button from "./Button";
 
 const Modal = ({ setShowModal, children }) => {
   return (
-    <div className="absolute h-screen w-screen bg-red-50">
+    <div className="absolute h-full w-screen bg-red-50 pb-4 overflow-y-scroll">
       <div className="relative p-5 border-2 border-violet-600 m-5 rounded-lg ">
         <Button
           className="absolute top-1 right-2"

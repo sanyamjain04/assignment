@@ -4,6 +4,7 @@ const Input = ({
   name,
   label,
   type,
+  ref,
   placeholder,
   value,
   onChange,
@@ -13,11 +14,12 @@ const Input = ({
   return (
     <label
       htmlFor={id}
-      className="relative overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-lg focus-within:border-violet-600 focus-within:ring-1 focus-within:ring-violet-600 sm:w-80"
+      className="relative overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-lg focus-within:border-violet-600 focus-within:ring-1 focus-within:ring-violet-600"
     >
       <input
         type={type}
         id={id}
+        ref={ref}
         name={name}
         placeholder={placeholder}
         value={value}

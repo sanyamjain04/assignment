@@ -13,9 +13,8 @@ const Form = ({ userData }) => {
     useMultiForm([
       <UserContactDetails {...data} onChangeData={onChangeData} />,
       <UserAddressDetails {...data} onChangeData={onChangeData} />,
-      <BioForm {...data} onChangeData={onChangeData} />,
+      <BioForm {...data} onChangeData={onChangeData} setData={setData} />,
     ]);
-
   function onSubmit(e) {
     e.preventDefault();
     if (isLastForm) return nextForm();
@@ -31,7 +30,7 @@ const Form = ({ userData }) => {
     <div className="flex h-screen items-center justify-center">
       <form
         onSubmit={onSubmit}
-        className="p-2 border-violet-900 rounded-lg flex flex-col border-2 min-h-[375px] max-w-sm"
+        className="p-2 border-violet-900 rounded-lg flex flex-col border-2 min-h-[375px] max-w-md xs:w-80 sm:w-[400px]"
       >
         {form}
         <div className="flex items-center mt-auto">
@@ -50,7 +49,7 @@ const Form = ({ userData }) => {
   );
 };
 
-const UserProfile = ({ setShowModal , data }) => {
+const UserProfile = ({ setShowModal, data }) => {
   const {
     firstName,
     lastName,
@@ -61,37 +60,47 @@ const UserProfile = ({ setShowModal , data }) => {
     state,
     zipcode,
     bio,
-    age
+    age,
+    userImage,
   } = data;
 
   function handleSubmit() {
-    localStorage.setItem("userData", JSON.stringify(data))
-    setShowModal(false)
+    localStorage.setItem("userData", JSON.stringify(data));
+    setShowModal(false);
+    alert("Data submitted")
   }
   return (
-    <Modal setShowModal={setShowModal} >
-        <h1 className="sm:text-center text-lg font-semibold">User Profile Editor</h1>
-        <div className="flex flex-col gap-3">
-          <div>
-            <h1 className="underline font-semibold">Contact Details</h1>
-            <p>Name: {firstName + " " +  lastName}</p>
-            <p>Age : {age}</p>
-            <p>Contact No. : {contact}</p>
-            <p>Email Id : {email}</p>
-          </div>
-          <div className="flex gap-2" >
-            <h1 className="underline font-semibold">Bio: </h1>
-            <p>{bio}</p>
-          </div>
-          <div>
-            <h1 className="underline font-semibold">Address Details</h1>
-            <p>Address : {address}</p>
-            <p>City : {city}</p>
-            <p>State : {state}</p>
-            <p>Zip Code : {zipcode}</p>
-          </div>
-          <Button onClick={handleSubmit}>Submit</Button>
+    <Modal setShowModal={setShowModal}>
+      <h1 className="sm:text-center text-lg font-semibold">
+        User Profile Editor
+      </h1>
+      <div className="flex flex-col gap-3">
+        <div>
+          <h1 className="underline font-semibold">Contact Details</h1>
+          <p>Name: {firstName + " " + lastName}</p>
+          <p>Age : {age}</p>
+          <p>Contact No. : {contact}</p>
+          <p>Email Id : {email}</p>
         </div>
+        <div className="flex gap-2">
+          <h1 className="underline font-semibold">Bio: </h1>
+          <p>{bio}</p>
+        </div>
+        <div>
+          <h1 className="underline font-semibold">Address Details</h1>
+          <p>Address : {address}</p>
+          <p>City : {city}</p>
+          <p>State : {state}</p>
+          <p>Zip Code : {zipcode}</p>
+        </div>
+        {userImage && (
+          <>
+            <h1 className="underline font-semibold">User Image</h1>
+            <img src={userImage} alt="userImage" height={100} width={100} />
+          </>
+        )}
+        <Button onClick={handleSubmit}>Submit</Button>
+      </div>
     </Modal>
   );
 };
